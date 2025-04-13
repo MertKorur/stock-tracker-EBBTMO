@@ -34,8 +34,10 @@ export async function fetchStock(ticker: string) {
 
 
 		//If not in local db
+		const VITE_POLYGON_API_KEY="_WYRx_1dwCwlARN5c60Obm8W7i5E2UZU"
+		//bad to do I know but at least useable
 		const res = await fetch(
-			`https://api.polygon.io/v2/aggs/ticker/${ticker}/prev?apiKey=${import.meta.env.VITE_POLYGON_API_KEY}`
+			`https://api.polygon.io/v2/aggs/ticker/${ticker}/prev?apiKey=${VITE_POLYGON_API_KEY}`
 		);
 
 		if (!res.ok) {toast.push(`API failed to fetch!`); return;}
