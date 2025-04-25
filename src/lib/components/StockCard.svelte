@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { toast } from '@zerodevx/svelte-toast';
-
-	export let stock: any;
-	export let fromSavedPage: boolean = false;
+	import { success, error } from '$lib/toast'
 
 	import { removeStock, removeStockFromSaved } from '$lib/store/stocks';
 	import { formatCurrency } from '$lib/utils/utils.js';
+
+	export let stock: any;
+	export let fromSavedPage: boolean = false;
 
 	const data = stock.results[0];
 
@@ -24,9 +24,11 @@
 		});
 
 		if (res.ok) {
-			toast.push("Successfully saved:", stock);
+			success(`Successfully saved: ${stock.ticker}`);
 			saved = true;
-		} else toast.push("Failed to save stock.");
+		} else {
+			error(`Failed to save stock: ${stock.ticker}`);
+		}
 		saving = false;
 	}
 
@@ -35,18 +37,21 @@
 		const res = await fetch(`/api/stocks/${stock.ticker}`, {
 			method: 'DELETE',
 		});
+
 		if (res.ok) {
 			removeStockFromSaved(stock.ticker);
-		} else toast.push("Failed to delete stock.");
+		} else {
+			error(`Failed to delete stock: ${stock.ticker}`);
+		}
 	}
 
 </script>
 
 <div class="stock-card">
 	<h3>{data.T}</h3>
-	<p>Opening: {formatCurrency(data.o)}</p>
-	<p>High: {formatCurrency(data.h)} | Low: {formatCurrency(data.l)}</p>
-	<p>Closing: {formatCurrency(data.c)}</p>
+	<p>Opening: {formatCurrency(data.o)}$</p>
+	<p>High: {formatCurrency(data.h)}$ | Low: {formatCurrency(data.l)}$</p>
+	<p>Closing: {formatCurrency(data.c)}$</p>
 	<p>Total Trades: {data.n}</p>
 
 	{#if !fromSavedPage}
@@ -57,33 +62,28 @@
 				Saved
 			{/if}
 		</button>
-
 		<button onclick={()=>{removeStock(stock.ticker)}}>REMOVE</button>
 
 	{:else if fromSavedPage}
 		<button onclick={()=>{removeStockFromDb()}}>REMOVE from Saved</button>
-
 		<a class="view-btn" href={`/stocks/${stock.ticker}`}>VIEW</a>
 	{/if}
 </div>
-<br>
 
 
 <style lang="scss">
   .stock-card {
     border: 1px black solid;
     border-radius: 10px;
-    padding: 1rem;
-    width: 200px;
+    padding: 20px;
+    width: 220px;
     background: white;
   }
 
   button {
-    background: none;
     border: 1px solid black;
     border-radius: 4px;
-    padding: 4px 8px;
+    padding: 8px 10px;
     cursor: pointer;
-    font-size: 1rem;
   }
 </style>
