@@ -12,7 +12,6 @@
 			const data = await res.json();
 			savedStocks.set(data);
 		} catch (err) {
-			console.error(err);
 			toast.push("Error loading saved stocks.");
 		}
 	});
