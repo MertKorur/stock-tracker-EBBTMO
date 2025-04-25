@@ -32,7 +32,8 @@ export async function fetchStock(ticker: string) {
 			return;
 		}
 
-		const apiKey = import.meta.env.VITE_POLYGON_API_KEY;
+		//const apiKey = import.meta.env.VITE_POLYGON_API_KEY;
+		const apiKey = "_WYRx_1dwCwlARN5c60Obm8W7i5E2UZU";
 		const res = await fetch(
 			`https://api.polygon.io/v2/aggs/ticker/${ticker}/prev?apiKey=${apiKey}`
 		);
