@@ -1,4 +1,4 @@
-import db from '$lib/db';
+import db from '$lib/database/db';
 import type { StockRow } from '$lib/types';
 
 export function insertStock(ticker: string, rawJson: any) {
@@ -13,7 +13,7 @@ export function insertStock(ticker: string, rawJson: any) {
 export function getStock(ticker: string) {
 	const row = db.prepare(`
 		SELECT * FROM stocks WHERE ticker = ?
-		`).get(ticker) as StockRow | undefined;
+		`).get(ticker) as StockRow;
 	return row ? JSON.parse(row.data) : null;
 }
 
