@@ -40,6 +40,5 @@
     border-radius: 30px;
     border: 2px solid #ddd;
     font-size: 16px;
-    outline: none;
 	}
 </style>

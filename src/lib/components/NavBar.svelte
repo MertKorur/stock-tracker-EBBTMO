@@ -19,8 +19,6 @@
 		<a href="/">Home</a>
 		<a href="/my_stocks">My Stocks</a>
 		<a href="/about">About</a>
-
-
 	</div>
 </nav>
 
@@ -31,18 +29,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 20px 40px;
 		border: black solid 1px;
 
     .logo a {
       text-decoration: none;
-      font-size: 2rem;
-      color: #222;
+      font-size: 30px;
+      color: black;
     }
 
     .hamburger {
       display: none;
-      font-size: 1.5rem;
+      font-size: 40px;
       background: none;
       border: none;
       cursor: pointer;
@@ -50,7 +48,7 @@
 
     .links {
       display: flex;
-      gap: 1.5rem;
+      gap: 20px;
 
       a {
         text-decoration: none;
@@ -58,30 +56,27 @@
       }
     }
 
-    @media (max-width: 875px) {
+    @media (max-width: 900px) {
       .hamburger {
         display: block;
       }
 
       .links {
         position: absolute;
-        top: 64px;
-        right: 2rem;
+        top: 125px;
         background: white;
         flex-direction: column;
-        align-items: flex-start;
-        padding: 1rem;
-        border: 1px solid #ddd;
-        border-radius: 6px;
+        padding: 15px;
+        border: 1px solid black;
+        border-radius: 5px;
         display: none;
 
         &.open {
           display: flex;
-					left: 2rem;
         }
 
         a {
-          margin: 0.5rem 0;
+          margin: 5px;
         }
       }
     }
