@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { getStock, deleteStock } from '$lib/stocks-sql';
+import { getStock, deleteStock } from '$lib/database/stocks-sql';
 
 //Return 1 specific stock
 export async function GET({ params }) {
@@ -17,11 +17,6 @@ export async function DELETE({ params }) {
 
 	if (!getStock(ticker)) return json({ error: "Not found" }, { status: 404 });
 
-	try {
-		deleteStock(ticker);
-		return json({ success: true });
-	} catch (err) {
-		console.error("failed delete: ", err);
-		return json({ error: "An error occurred" }, { status: 500 });
-	}
+	deleteStock(ticker);
+	return json({ success: true });
 }
