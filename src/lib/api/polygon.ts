@@ -1,5 +1,5 @@
 import type { StockResponse } from '$lib/types';
-import { toast } from '@zerodevx/svelte-toast';
+import { success, error, info } from '$lib/toast';
 import { stocks } from '$lib/store/stocks';
 
 function addToStore(ticker: string, data: StockResponse, source: 'db' | 'api') {
@@ -14,9 +14,9 @@ function addToStore(ticker: string, data: StockResponse, source: 'db' | 'api') {
 	});
 
 	if (exists) {
-		toast.push(`Ticker '${ticker}' already exists!`);
+		info(`Ticker ${ticker} already exists!`);
 	} else {
-		toast.push(`Ticker '${ticker}' added from '${source}'!`);
+		success(`Ticker ${ticker} added from ${source}!`);
 	}
 }
 
@@ -32,28 +32,24 @@ export async function fetchStock(ticker: string) {
 			return;
 		}
 
-
-		//If not in local db
-		const VITE_POLYGON_API_KEY="_WYRx_1dwCwlARN5c60Obm8W7i5E2UZU"
-		//bad to do I know but at least useable
+		const apiKey = import.meta.env.VITE_POLYGON_API_KEY;
 		const res = await fetch(
-			`https://api.polygon.io/v2/aggs/ticker/${ticker}/prev?apiKey=${VITE_POLYGON_API_KEY}`
+			`https://api.polygon.io/v2/aggs/ticker/${ticker}/prev?apiKey=${apiKey}`
 		);
 
-		if (!res.ok) {toast.push(`API failed to fetch!`); return;}
+		if (!res.ok) {error(`API failed to fetch!`); return;}
 
 		const data: StockResponse = await res.json();
 
 		//Check if valid
 		if (!data || data.status !== "OK" || !data.results || data.results.length === 0) {
-			toast.push(`Ticker '${ticker}' not found!`);
+			error(`Ticker '${ticker}' not found!`);
 			return;
 		}
 
 		addToStore(ticker, data, 'api')
 
 	} catch (err) {
-		toast.push(`Something went wrong fetching the stock`);
-		console.error(err);
+		error(`Something went wrong fetching the stock`);
 	}
 }
