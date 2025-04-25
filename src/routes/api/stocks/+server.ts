@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { insertStock, getAllStocks } from '$lib/stocks-sql';
+import { insertStock, getAllStocks } from '$lib/database/stocks-sql';
 
 //Get ALL stocks
 export async function GET() {
@@ -10,7 +10,7 @@ export async function GET() {
 //Save a new stock
 export async function POST({ request }) {
 	const stock = await request.json();
-	const ticker = stock.ticker || stock.results[0].T;
+	const ticker = stock.ticker;
 
 	if (!ticker) return json({ error: 'Missing ticker' }, { status: 400 });
 
