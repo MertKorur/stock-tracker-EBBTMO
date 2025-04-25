@@ -22,7 +22,9 @@ Thumbs.db
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-
-tmp/
+# IDE
 .idea/
-*.db
+
+# System
+tmp/
+my_stocks.db
