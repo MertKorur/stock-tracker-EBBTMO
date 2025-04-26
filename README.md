@@ -124,7 +124,7 @@ data: JSON string of the stock data
 
 ## How to Run the Project:
 
-1. Clone the repository:
+Clone the repository:
 ```bash
 git clone https://github.com/MertKorur/stock-tracker-EBBTMO.git
 cd stock-tracker-EBBTMO
