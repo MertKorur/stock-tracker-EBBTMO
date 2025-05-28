@@ -9,7 +9,7 @@ function removeFromStore(store: Writable<StockResponse[]>,
 												 ticker: string,
 												 context = '') {
 	store.update(list =>
-		list.filter(s => s.ticker !== ticker));
+		list.filter(stock => stock.ticker !== ticker));
 	success(`Ticker ${ticker} removed from ${context}`);
 }
 

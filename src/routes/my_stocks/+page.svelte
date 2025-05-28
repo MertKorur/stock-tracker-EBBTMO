@@ -7,6 +7,7 @@
 	onMount(async () => {
 		try {
 			const res = await fetch("/api/stocks");
+
 			if (!res.ok) toast.push("Failed to load stocks");
 
 			const data = await res.json();

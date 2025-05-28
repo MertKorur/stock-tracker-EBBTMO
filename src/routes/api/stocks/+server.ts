@@ -2,7 +2,7 @@ import { json } from '@sveltejs/kit';
 import { insertStock, getAllStocks } from '$lib/database/stocks-sql';
 
 //Get ALL stocks
-export async function GET() {
+export function GET() {
 	const data = getAllStocks();
 	return json(data);
 }

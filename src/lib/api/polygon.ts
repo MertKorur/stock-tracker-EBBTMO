@@ -10,7 +10,8 @@ function addToStore(ticker: string, data: StockResponse, source: 'db' | 'api') {
 			exists = true;
 			return current;
 		}
-		return [...current, { ...data, ticker }];
+		const newStock = { ...data, ticker };
+		return [...current, newStock];
 	});
 
 	if (exists) {
@@ -43,7 +44,7 @@ export async function fetchStock(ticker: string) {
 		const data: StockResponse = await res.json();
 
 		//Check if valid
-		if (!data || data.status !== "OK" || !data.results || data.results.length === 0) {
+		if (!data?.results?.length || data?.status !== "OK") {
 			error(`Ticker '${ticker}' not found!`);
 			return;
 		}
